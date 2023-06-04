@@ -5,6 +5,9 @@ import com.jestor.domain.repository.UsuarioRepository;
 import com.jestor.domain.service.CadastroUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,16 @@ public class UsuarioController {
         Usuario usuario = cadastroUsuario.searchOrFail(usuarioId);
 
         return usuario;
+    }
+
+    @GetMapping("/foo")
+    public String foo(BearerTokenAuthentication authentication) {
+        return authentication.getTokenAttributes().get("sub") + " is the subject";
+    }
+
+    @GetMapping("/foo2")
+    public String foo(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {
+        return principal.getAttribute("sub") + " is the subject";
     }
 
     //    @PostMapping
