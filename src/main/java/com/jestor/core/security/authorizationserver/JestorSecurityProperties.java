@@ -16,5 +16,4 @@ public class JestorSecurityProperties {
 
     @NotBlank
     private String providerUrl;
-
 }

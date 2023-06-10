@@ -2,7 +2,6 @@ package com.jestor.domain.service;
 
 import com.jestor.domain.exception.BusinessException;
 import com.jestor.domain.exception.UserNotFoundException;
-import com.jestor.domain.model.Grupo;
 import com.jestor.domain.model.Usuario;
 import com.jestor.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,6 @@ public class CadastroUsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private CadastroGrupoService cadastroGrupoService;
 
     @Transactional
     public Usuario save(Usuario usuario) {
@@ -45,25 +41,8 @@ public class CadastroUsuarioService {
         usuario.setSenha(newPassword);
     }
 
-    @Transactional
-    public void disassociateUserGroup(Long userId, Long grupoId) {
-        Usuario usuario = searchOrFail(userId);
-        Grupo grupo = cadastroGrupoService.searchOrFail(grupoId);
-
-        usuario.removeGroup(grupo);
-    }
-
-    @Transactional
-    public void connectUserGroup(Long userId, Long grupoId) {
-        Usuario usuario = searchOrFail(userId);
-        Grupo grupo = cadastroGrupoService.searchOrFail(grupoId);
-
-        usuario.addGroup(grupo);
-    }
-
     public Usuario searchOrFail(Long userId) {
         return usuarioRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
     }
-
 }
