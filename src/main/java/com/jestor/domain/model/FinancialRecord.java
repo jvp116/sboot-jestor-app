@@ -1,5 +1,6 @@
 package com.jestor.domain.model;
 
+import com.jestor.core.security.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +12,7 @@ import java.time.OffsetDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 @Entity
-public class Lancamento {
+public class FinancialRecord {
 
     @EqualsAndHashCode.Include
     @Id
@@ -20,20 +21,20 @@ public class Lancamento {
     private Long id;
 
     @Column(nullable = false)
-    private BigDecimal valor;
+    private BigDecimal value;
 
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
-    private OffsetDateTime dataCadastro;
+    private OffsetDateTime registerDate;
 
     @Column(nullable = false, length = 50)
-    private String descricao;
+    private String description;
 
-    @ManyToOne(targetEntity = Usuario.class)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false, referencedColumnName = "id")
-    private Usuario usuario;
+    private User user;
 
-    @ManyToOne(targetEntity = Categoria.class)
+    @ManyToOne(targetEntity = Category.class)
     @JoinColumn(nullable = false, referencedColumnName = "id")
-    private Categoria categoria;
+    private Category category;
 }
