@@ -1,6 +1,6 @@
 package com.jestor.core.security.auth;
 
-import com.jestor.core.security.user.Role;
+import com.jestor.domain.model.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

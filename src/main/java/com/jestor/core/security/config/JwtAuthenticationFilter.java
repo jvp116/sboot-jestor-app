@@ -1,6 +1,6 @@
 package com.jestor.core.security.config;
 
-import com.jestor.core.security.token.TokenRepository;
+import com.jestor.infrastructure.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

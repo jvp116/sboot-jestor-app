@@ -1,6 +1,6 @@
 package com.jestor.core.security.config;
 
-import com.jestor.core.security.user.UserRepository;
+import com.jestor.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
-package com.jestor.core.security.user;
+package com.jestor.domain.model.user;
 
-import com.jestor.core.security.token.Token;
+import com.jestor.domain.model.token.Token;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

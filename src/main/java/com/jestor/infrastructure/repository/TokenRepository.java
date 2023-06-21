@@ -1,5 +1,6 @@
-package com.jestor.core.security.token;
+package com.jestor.infrastructure.repository;
 
+import com.jestor.domain.model.token.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

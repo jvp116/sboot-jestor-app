@@ -1,4 +1,4 @@
-package com.jestor.core.security.user;
+package com.jestor.domain.model.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

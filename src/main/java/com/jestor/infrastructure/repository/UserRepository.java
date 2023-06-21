@@ -1,5 +1,6 @@
-package com.jestor.core.security.user;
+package com.jestor.infrastructure.repository;
 
+import com.jestor.domain.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

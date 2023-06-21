@@ -1,6 +1,6 @@
 package com.jestor.core.security.config;
 
-import com.jestor.core.security.token.TokenRepository;
+import com.jestor.infrastructure.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

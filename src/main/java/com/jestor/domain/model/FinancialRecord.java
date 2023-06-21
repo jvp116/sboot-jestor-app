@@ -1,6 +1,6 @@
 package com.jestor.domain.model;
 
-import com.jestor.core.security.user.User;
+import com.jestor.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,12 +1,15 @@
-package com.jestor.core.security.auth;
+package com.jestor.infrastructure.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jestor.core.security.auth.AuthenticationRequest;
+import com.jestor.core.security.auth.AuthenticationResponse;
+import com.jestor.core.security.auth.RegisterRequest;
 import com.jestor.core.security.config.JwtService;
-import com.jestor.core.security.token.Token;
-import com.jestor.core.security.user.User;
-import com.jestor.core.security.user.UserRepository;
-import com.jestor.core.security.token.TokenRepository;
-import com.jestor.core.security.token.TokenType;
+import com.jestor.domain.model.token.Token;
+import com.jestor.domain.model.user.User;
+import com.jestor.infrastructure.repository.UserRepository;
+import com.jestor.infrastructure.repository.TokenRepository;
+import com.jestor.domain.model.token.TokenType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

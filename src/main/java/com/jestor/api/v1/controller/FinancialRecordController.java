@@ -1,4 +1,4 @@
-package com.jestor.financialrecord;
+package com.jestor.api.v1.controller;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;

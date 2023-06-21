@@ -1,5 +1,9 @@
-package com.jestor.core.security.auth;
+package com.jestor.api.v1.controller;
 
+import com.jestor.core.security.auth.AuthenticationRequest;
+import com.jestor.core.security.auth.AuthenticationResponse;
+import com.jestor.core.security.auth.RegisterRequest;
+import com.jestor.infrastructure.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
