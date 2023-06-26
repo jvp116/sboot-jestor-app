@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jestor.core.security.auth.AuthenticationRequest;
 import com.jestor.core.security.auth.AuthenticationResponse;
 import com.jestor.core.security.auth.RegisterRequest;
-import com.jestor.core.security.config.JwtService;
 import com.jestor.domain.model.token.Token;
 import com.jestor.domain.model.user.User;
 import com.jestor.infrastructure.repository.UserRepository;

@@ -1,4 +1,4 @@
-package com.jestor.core.security.config;
+package com.jestor.infrastructure.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

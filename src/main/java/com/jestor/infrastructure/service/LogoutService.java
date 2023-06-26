@@ -1,4 +1,4 @@
-package com.jestor.core.security.config;
+package com.jestor.infrastructure.service;
 
 import com.jestor.infrastructure.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
