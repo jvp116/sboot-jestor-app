@@ -3,7 +3,6 @@ package com.jestor.infrastructure.service;
 import com.jestor.domain.model.dto.UserDTO;
 import com.jestor.domain.model.user.User;
 import com.jestor.infrastructure.repository.UserRepository;
-import com.jestor.infrastructure.service.exception.ResourceAlreadyExistsException;
 import com.jestor.infrastructure.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
