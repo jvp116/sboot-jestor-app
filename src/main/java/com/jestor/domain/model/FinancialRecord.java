@@ -4,10 +4,9 @@ import com.jestor.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.util.Date;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
@@ -23,9 +22,8 @@ public class FinancialRecord {
     @Column(nullable = false)
     private BigDecimal value;
 
-    @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "datetime")
-    private OffsetDateTime registerDate;
+    @Column(nullable = false, columnDefinition = "date")
+    private Date date;
 
     @Column(nullable = false, length = 50)
     private String description;

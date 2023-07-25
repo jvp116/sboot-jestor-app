@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `jestor`.`financial_record` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `value` DECIMAL(38,2) NOT NULL,
   `description` VARCHAR(50) NOT NULL,
-  `register_date` DATETIME NOT NULL,
+  `date` DATE NOT NULL,
   `category_id` BIGINT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
