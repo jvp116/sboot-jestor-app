@@ -25,10 +25,8 @@ public class FinancialRecordService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<ResponseGetFinancialRecords> findAllByUser(RequestGetFinancialRecords request) {
-        User userFound = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado."));
-
-        List<FinancialRecord> financialRecords = repository.findAllByUser(userFound);
+    public List<ResponseGetFinancialRecords> getFinancialRecords(RequestGetFinancialRecords request) {
+        List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType());
 
         List<FinancialRecord> financialRecordList = new ArrayList<>();
         financialRecordList.addAll(financialRecords);

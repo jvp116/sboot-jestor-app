@@ -20,7 +20,7 @@ public class FinancialRecordController {
 
     @GetMapping
     public ResponseEntity getFinancialRecords(@RequestBody RequestGetFinancialRecords request) {
-        List<ResponseGetFinancialRecords> list = service.findAllByUser(request);
+        List<ResponseGetFinancialRecords> list = service.getFinancialRecords(request);
 
         if (list.isEmpty()) return ResponseEntity.noContent().build();
 
