@@ -2,8 +2,8 @@ package com.jestor.infrastructure.service;
 
 import com.jestor.domain.model.FinancialRecord;
 import com.jestor.domain.model.dto.FinancialRecordDTO;
+import com.jestor.domain.model.dto.RequestGetFinancialRecords;
 import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
-import com.jestor.domain.model.dto.UserDTO;
 import com.jestor.domain.model.user.User;
 import com.jestor.infrastructure.repository.FinancialRecordRepository;
 import com.jestor.infrastructure.repository.UserRepository;
@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,10 +25,19 @@ public class FinancialRecordService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<ResponseGetFinancialRecords> findAllByUser(UserDTO userDTO) {
-        User userFound = userRepository.findByEmail(userDTO.getEmail()).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado."));
+    public List<ResponseGetFinancialRecords> findAllByUser(RequestGetFinancialRecords request) {
+        User userFound = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado."));
 
         List<FinancialRecord> financialRecords = repository.findAllByUser(userFound);
+
+        List<FinancialRecord> financialRecordList = new ArrayList<>();
+        financialRecordList.addAll(financialRecords);
+
+        financialRecordList.forEach(element -> {
+            if (element.getDate().getMonth().getValue() != request.getMonth()) {
+                financialRecords.remove(element);
+            }
+        });
 
         return financialRecords.stream().map(ResponseGetFinancialRecords::new).toList();
     }

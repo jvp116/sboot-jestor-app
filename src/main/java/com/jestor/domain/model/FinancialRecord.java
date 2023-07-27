@@ -8,8 +8,10 @@ import com.jestor.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.cglib.core.Local;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -28,7 +30,7 @@ public class FinancialRecord {
     private BigDecimal value;
 
     @Column(nullable = false, columnDefinition = "date")
-    private Date date;
+    private LocalDate date;
 
     @Column(nullable = false, length = 50)
     private String description;

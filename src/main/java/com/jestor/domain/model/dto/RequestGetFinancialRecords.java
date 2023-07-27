@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class RequestGetFinancialRecords {
 
     private String email;
-    private Integer mes;
+    private Integer month;
 }

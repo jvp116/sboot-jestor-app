@@ -1,6 +1,7 @@
 package com.jestor.api.v1.controller;
 
 import com.jestor.domain.model.dto.FinancialRecordDTO;
+import com.jestor.domain.model.dto.RequestGetFinancialRecords;
 import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
 import com.jestor.domain.model.dto.UserDTO;
 import com.jestor.infrastructure.service.FinancialRecordService;
@@ -18,8 +19,8 @@ public class FinancialRecordController {
     private final FinancialRecordService service;
 
     @GetMapping
-    public ResponseEntity getFinancialRecords(@RequestBody UserDTO dto) {
-        List<ResponseGetFinancialRecords> list = service.findAllByUser(dto);
+    public ResponseEntity getFinancialRecords(@RequestBody RequestGetFinancialRecords request) {
+        List<ResponseGetFinancialRecords> list = service.findAllByUser(request);
 
         if (list.isEmpty()) return ResponseEntity.noContent().build();
 
