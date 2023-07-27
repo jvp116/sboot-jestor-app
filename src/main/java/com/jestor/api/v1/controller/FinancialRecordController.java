@@ -1,12 +1,11 @@
 package com.jestor.api.v1.controller;
 
 import com.jestor.domain.model.dto.FinancialRecordDTO;
+import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
 import com.jestor.domain.model.dto.UserDTO;
 import com.jestor.infrastructure.service.FinancialRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class FinancialRecordController {
 
     @GetMapping
     public ResponseEntity getFinancialRecords(@RequestBody UserDTO dto) {
-        List<FinancialRecordDTO> list = service.findAllByUser(dto);
+        List<ResponseGetFinancialRecords> list = service.findAllByUser(dto);
 
         if (list.isEmpty()) return ResponseEntity.noContent().build();
 

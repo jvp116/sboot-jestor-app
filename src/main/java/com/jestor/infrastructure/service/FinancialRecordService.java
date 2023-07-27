@@ -2,6 +2,7 @@ package com.jestor.infrastructure.service;
 
 import com.jestor.domain.model.FinancialRecord;
 import com.jestor.domain.model.dto.FinancialRecordDTO;
+import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
 import com.jestor.domain.model.dto.UserDTO;
 import com.jestor.domain.model.user.User;
 import com.jestor.infrastructure.repository.FinancialRecordRepository;
@@ -23,12 +24,12 @@ public class FinancialRecordService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<FinancialRecordDTO> findAllByUser(UserDTO userDTO) {
+    public List<ResponseGetFinancialRecords> findAllByUser(UserDTO userDTO) {
         User userFound = userRepository.findByEmail(userDTO.getEmail()).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado."));
 
         List<FinancialRecord> financialRecords = repository.findAllByUser(userFound);
 
-        return financialRecords.stream().map(FinancialRecordDTO::new).toList();
+        return financialRecords.stream().map(ResponseGetFinancialRecords::new).toList();
     }
 
     public FinancialRecordDTO insert(FinancialRecordDTO dto) {
