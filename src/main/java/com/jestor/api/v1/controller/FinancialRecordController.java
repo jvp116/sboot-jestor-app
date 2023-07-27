@@ -5,6 +5,8 @@ import com.jestor.domain.model.dto.UserDTO;
 import com.jestor.infrastructure.service.FinancialRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

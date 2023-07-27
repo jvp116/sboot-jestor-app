@@ -1,5 +1,6 @@
 package com.jestor.domain.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jestor.domain.model.token.Token;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,18 +13,20 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+@Setter
 @Table(name = "_user")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @Column(nullable = false, unique = true)
     private Long id;
 
     @Column(nullable = false)
@@ -40,6 +43,7 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Token> tokens;
 
     @Override

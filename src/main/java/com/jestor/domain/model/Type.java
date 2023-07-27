@@ -1,17 +1,34 @@
 package com.jestor.domain.model;
 
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 import lombok.Getter;
 
 @Getter
 public enum Type {
 
-    E('E', "Entrada"), S('S', "Saída");
+    ENTRADA('E'), SAIDA('S');
 
-    Type(char code, String description) {
+    Type(char code) {
         this.code = code;
-        this.description = description;
     }
 
     private final char code;
-    private final String description;
+
+    @Converter(autoApply = true)
+    public static class Mapeador implements AttributeConverter<Type, String> {
+
+        @Override
+        public String convertToDatabaseColumn(Type attribute) {
+            return String.valueOf(attribute.getCode());
+        }
+
+        @Override
+        public Type convertToEntityAttribute(String dbData) {
+            if (dbData == null) return null;
+            if ("E".equals(dbData)) return ENTRADA;
+            if ("S".equals(dbData)) return SAIDA;
+            throw new IllegalStateException("Valor inválido: " + dbData);
+        }
+    }
 }

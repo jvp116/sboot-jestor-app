@@ -15,6 +15,7 @@ public class Token {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @Column(nullable = false, unique = true)
     public Integer id;
 
     @Column(unique = true)
