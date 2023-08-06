@@ -38,11 +38,11 @@ public class FinancialRecordService {
         return financialRecords.stream().map(ResponseGetFinancialRecords::new).toList();
     }
 
-    public FinancialRecordDTO insert(FinancialRecordDTO dto) {
+    public ResponseGetFinancialRecords insert(FinancialRecordDTO dto) {
         FinancialRecord entity = new FinancialRecord();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
-        return new FinancialRecordDTO(entity);
+        return new ResponseGetFinancialRecords(entity);
     }
 
     private void copyDtoToEntity(FinancialRecordDTO dto, FinancialRecord entity) {
