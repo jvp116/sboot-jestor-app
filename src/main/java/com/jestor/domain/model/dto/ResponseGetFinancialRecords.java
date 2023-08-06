@@ -1,15 +1,13 @@
 package com.jestor.domain.model.dto;
 
-import com.jestor.domain.model.Category;
-import com.jestor.domain.model.FinancialRecord;
-import com.jestor.domain.model.user.User;
+import com.jestor.domain.model.financialrecord.Category;
+import com.jestor.domain.model.financialrecord.FinancialRecord;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor

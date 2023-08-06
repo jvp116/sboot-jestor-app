@@ -1,4 +1,4 @@
-package com.jestor.domain.model;
+package com.jestor.domain.model.financialrecord;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
