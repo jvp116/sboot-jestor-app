@@ -29,8 +29,11 @@ public class FinancialRecordService {
         List<FinancialRecord> financialRecordList = new ArrayList<>();
         financialRecordList.addAll(financialRecords);
 
+
         financialRecordList.forEach(element -> {
-            if (element.getDate().getMonth().getValue() != request.getMonth()) {
+            String month = String.valueOf(element.getDate().getMonth().getValue());
+
+            if (!request.getMonth().equals(month)) {
                 financialRecords.remove(element);
             }
         });
