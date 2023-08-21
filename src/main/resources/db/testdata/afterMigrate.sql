@@ -18,23 +18,20 @@ VALUES
 
 INSERT IGNORE INTO category (description, icon, color, type)
 VALUES
-    ('Renda', 'money', '196E19', 'E'),
+    ('Alimentação', 'food', 'D10202', 'S'),
     ('Bônus', 'gift', '00A5CF', 'E'),
-    ('Vendas', 'shopping_bag', 'D10202', 'E'),
-    ('Rendimentos', 'growth_curve', '25A539', 'E'),
-    ('Outras entradas', 'others', '175D91', 'E');
-
-INSERT IGNORE INTO category (description, icon, color, type)
-VALUES
-    ('Moradia', 'home', 'C46B0F', 'S'),
-    ('Saúde', 'heart', '25A539', 'S'),
+    ('Compras', 'shopping_cart', '4E196E', 'S'),
     ('Educação', 'study', '7F6BB3', 'S'),
     ('Lazer', 'vacation', 'CCB801', 'S'),
-    ('Transporte', 'car', '00A5CF', 'S'),
-    ('Alimentação', 'food', 'D10202', 'S'),
-    ('Compras', 'shopping_cart', '4E196E', 'S'),
+    ('Moradia', 'home', 'C46B0F', 'S'),
+    ('Outras entradas', 'others', '175D91', 'E'),
+    ('Outras saídas', 'others', '175D91', 'S'),
     ('Pet', 'pet', '7E4409', 'S'),
-    ('Outras saídas', 'others', '175D91', 'S');
+    ('Renda', 'money', '196E19', 'E'),
+    ('Rendimentos', 'growth_curve', '25A539', 'E'),
+    ('Saúde', 'heart', '25A539', 'S'),
+    ('Transporte', 'car', '00A5CF', 'S'),
+    ('Vendas', 'shopping_bag', 'D10202', 'E');
 
 INSERT IGNORE INTO financial_record (value, description, date, category_id, user_id)
 VALUES
