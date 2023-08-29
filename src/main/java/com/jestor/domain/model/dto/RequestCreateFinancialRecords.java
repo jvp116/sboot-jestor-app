@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestGetFinancialRecords {
+public class RequestCreateFinancialRecords {
+    private double value;
+    private String description;
+    private String date;
+    private Integer categoryId;
     private String email;
-    private String type;
-    private String month;
 }

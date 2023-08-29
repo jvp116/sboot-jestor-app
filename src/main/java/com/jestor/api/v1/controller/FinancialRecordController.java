@@ -1,6 +1,6 @@
 package com.jestor.api.v1.controller;
 
-import com.jestor.domain.model.dto.FinancialRecordDTO;
+import com.jestor.domain.model.dto.RequestCreateFinancialRecords;
 import com.jestor.domain.model.dto.RequestGetFinancialRecords;
 import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
 import com.jestor.infrastructure.service.FinancialRecordService;
@@ -28,8 +28,8 @@ public class FinancialRecordController {
     }
 
     @PostMapping
-    public ResponseEntity insert(@RequestBody FinancialRecordDTO dto) {
-        return ResponseEntity.ok(service.insert(dto));
+    public ResponseEntity createFinancialRecord(@RequestBody RequestCreateFinancialRecords request) {
+        return ResponseEntity.ok(service.createFinancialRecord(request));
     }
 
 }

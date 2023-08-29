@@ -1,6 +1,6 @@
 package com.jestor.infrastructure.service;
 
-import com.jestor.domain.model.dto.FinancialRecordDTO;
+import com.jestor.domain.model.dto.RequestCreateFinancialRecords;
 import com.jestor.domain.model.dto.RequestGetFinancialRecords;
 import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
 import com.jestor.domain.model.financialrecord.FinancialRecord;
@@ -41,18 +41,8 @@ public class FinancialRecordService {
         return financialRecords.stream().map(ResponseGetFinancialRecords::new).toList();
     }
 
-    public ResponseGetFinancialRecords insert(FinancialRecordDTO dto) {
-        FinancialRecord entity = new FinancialRecord();
-        copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-        return new ResponseGetFinancialRecords(entity);
-    }
-
-    private void copyDtoToEntity(FinancialRecordDTO dto, FinancialRecord entity) {
-        entity.setValue(dto.getValue());
-        entity.setDate(dto.getDate());
-        entity.setDescription(dto.getDescription());
-        entity.setUser(dto.getUser());
-        entity.setCategory(dto.getCategory());
+    public FinancialRecord createFinancialRecord(RequestCreateFinancialRecords request) {
+        repository.createFinancialRecord(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getEmail());
+        return null;
     }
 }
