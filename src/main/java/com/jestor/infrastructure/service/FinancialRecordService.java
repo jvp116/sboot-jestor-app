@@ -5,9 +5,9 @@ import com.jestor.domain.model.dto.RequestGetFinancialRecords;
 import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
 import com.jestor.domain.model.financialrecord.FinancialRecord;
 import com.jestor.infrastructure.repository.FinancialRecordRepository;
-import com.jestor.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,9 +20,7 @@ public class FinancialRecordService {
     @Autowired
     private FinancialRecordRepository repository;
 
-    @Autowired
-    private UserRepository userRepository;
-
+    @Cacheable(value = "financial_records", key="{#request.email,#request.type}", condition="#request.type=='E' or #request.type=='S'")
     public List<ResponseGetFinancialRecords> getFinancialRecords(RequestGetFinancialRecords request) {
         List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType());
 
