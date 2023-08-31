@@ -2,18 +2,18 @@ package com.jestor.domain.model.dto;
 
 import com.jestor.domain.model.financialrecord.Category;
 import com.jestor.domain.model.financialrecord.FinancialRecord;
-import com.jestor.domain.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FinancialRecordDTO {
+public class FinancialRecordDTO implements Serializable {
 
     private Long id;
 
@@ -23,8 +23,6 @@ public class FinancialRecordDTO {
 
     private String description;
 
-    private User user;
-
     private Category category;
 
     public FinancialRecordDTO(FinancialRecord entity) {
@@ -32,7 +30,6 @@ public class FinancialRecordDTO {
         this.value = entity.getValue();
         this.date = entity.getDate();
         this.description = entity.getDescription();
-        this.user = entity.getUser();
         this.category = entity.getCategory();
     }
 }

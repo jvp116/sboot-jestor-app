@@ -1,9 +1,6 @@
 package com.jestor.infrastructure.service;
 
-import com.jestor.domain.model.dto.RequestCreateFinancialRecords;
-import com.jestor.domain.model.dto.RequestGetFinancialRecords;
-import com.jestor.domain.model.dto.ResponseCreateFinancialRecords;
-import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
+import com.jestor.domain.model.dto.*;
 import com.jestor.domain.model.financialrecord.FinancialRecord;
 import com.jestor.infrastructure.repository.FinancialRecordRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +9,10 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,10 +22,15 @@ public class FinancialRecordService {
     private FinancialRecordRepository repository;
 
     @Cacheable(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
-    public List<ResponseGetFinancialRecords> getFinancialRecords(RequestGetFinancialRecords request) {
+    public ResponseGetFinancialRecords getFinancialRecords(RequestGetFinancialRecords request) {
         List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType(), request.getMonth());
 
-        return financialRecords.stream().map(ResponseGetFinancialRecords::new).toList();
+        ResponseGetFinancialRecords response = new ResponseGetFinancialRecords();
+
+        response.setTotalMes(financialRecords.stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
+        response.setFinancialRecords(financialRecords.stream().map(FinancialRecordDTO::new).toList());
+
+        return response;
     }
 
     @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")

@@ -20,12 +20,12 @@ public class FinancialRecordController {
     private final FinancialRecordService service;
 
     @GetMapping
-    public ResponseEntity<List<ResponseGetFinancialRecords>> getFinancialRecords(@RequestBody RequestGetFinancialRecords request) {
-        List<ResponseGetFinancialRecords> list = service.getFinancialRecords(request);
+    public ResponseEntity<ResponseGetFinancialRecords> getFinancialRecords(@RequestBody RequestGetFinancialRecords request) {
+        ResponseGetFinancialRecords response = service.getFinancialRecords(request);
 
-        if (list.isEmpty()) return ResponseEntity.noContent().build();
+        if (response.getFinancialRecords().isEmpty()) return ResponseEntity.noContent().build();
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping
