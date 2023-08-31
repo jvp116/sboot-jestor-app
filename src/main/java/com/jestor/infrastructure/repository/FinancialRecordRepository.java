@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -28,7 +29,7 @@ public interface FinancialRecordRepository extends JpaRepository<FinancialRecord
             nativeQuery = true
     )
     void createFinancialRecord(
-            @Param("value") Double value,
+            @Param("value") BigDecimal value,
             @Param("description") String description,
             @Param("date") String date,
             @Param("categoryId") Integer categoryId,

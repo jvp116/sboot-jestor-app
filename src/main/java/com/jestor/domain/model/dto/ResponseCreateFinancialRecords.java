@@ -9,11 +9,10 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestCreateFinancialRecords {
+public class ResponseCreateFinancialRecords {
     private BigDecimal value;
     private String description;
     private String date;
     private Integer categoryId;
     private String type;
-    private String email;
 }

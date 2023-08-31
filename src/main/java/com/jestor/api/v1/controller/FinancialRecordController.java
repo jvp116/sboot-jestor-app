@@ -29,7 +29,6 @@ public class FinancialRecordController {
 
     @PostMapping
     public ResponseEntity createFinancialRecord(@RequestBody RequestCreateFinancialRecords request) {
-        return ResponseEntity.ok(service.createFinancialRecord(request));
+        return new ResponseEntity<>(service.createFinancialRecord(request), HttpStatus.CREATED);
     }
-
 }
