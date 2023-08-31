@@ -22,26 +22,14 @@ public class FinancialRecordService {
     @Autowired
     private FinancialRecordRepository repository;
 
-    @Cacheable(value = "financial_records", key = "{#request.email,#request.type}", condition = "#request.type=='E' or #request.type=='S'")
+    @Cacheable(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
     public List<ResponseGetFinancialRecords> getFinancialRecords(RequestGetFinancialRecords request) {
-        List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType());
-
-        List<FinancialRecord> financialRecordList = new ArrayList<>();
-        financialRecordList.addAll(financialRecords);
-
-
-        financialRecordList.forEach(element -> {
-            String month = String.valueOf(element.getDate().getMonth().getValue());
-
-            if (!request.getMonth().equals(month)) {
-                financialRecords.remove(element);
-            }
-        });
+        List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType(), request.getMonth());
 
         return financialRecords.stream().map(ResponseGetFinancialRecords::new).toList();
     }
 
-    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type}", condition = "#request.type=='E' or #request.type=='S'")
+    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
     public ResponseCreateFinancialRecords createFinancialRecord(RequestCreateFinancialRecords request) {
         repository.createFinancialRecord(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getEmail());
         return new ResponseCreateFinancialRecords(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getType());

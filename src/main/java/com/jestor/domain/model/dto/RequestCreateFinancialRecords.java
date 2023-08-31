@@ -13,6 +13,7 @@ public class RequestCreateFinancialRecords {
     private BigDecimal value;
     private String description;
     private String date;
+    private Integer month;
     private Integer categoryId;
     private String type;
     private String email;

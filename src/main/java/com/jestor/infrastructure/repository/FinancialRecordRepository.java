@@ -16,10 +16,10 @@ public interface FinancialRecordRepository extends JpaRepository<FinancialRecord
 
     @Query(
             name = "FinancialRecord.findAllRecordsByUser",
-            value = "SELECT fc.id, fc.value, fc.description, fc.date, fc.category_id, fc.user_id, c.type FROM financial_record fc LEFT JOIN category c ON fc.category_id = c.id LEFT JOIN _user u ON fc.user_id = u.id WHERE c.type = :type AND u.email = :email ORDER BY fc.date DESC, fc.id DESC",
+            value = "SELECT SUM(fc.value) OVER() AS totalMes, fc.id, fc.value, fc.description, fc.date, fc.category_id, fc.user_id, c.type FROM financial_record fc LEFT JOIN category c ON fc.category_id = c.id LEFT JOIN _user u ON fc.user_id = u.id WHERE c.type = :type AND u.email = :email AND MONTH(fc.date) = :month ORDER BY fc.date DESC, fc.id DESC",
             nativeQuery = true
     )
-    List<FinancialRecord> getFinancialRecords(@Param("email") String email, @Param("type") String type);
+    List<FinancialRecord> getFinancialRecords(@Param("email") String email, @Param("type") String type, @Param("month") Integer month);
 
     @Transactional
     @Modifying
