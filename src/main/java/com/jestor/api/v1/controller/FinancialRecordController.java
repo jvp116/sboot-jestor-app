@@ -23,8 +23,6 @@ public class FinancialRecordController {
     public ResponseEntity<ResponseGetFinancialRecords> getFinancialRecords(@RequestBody RequestGetFinancialRecords request) {
         ResponseGetFinancialRecords response = service.getFinancialRecords(request);
 
-        if (response.getFinancialRecords().isEmpty()) return ResponseEntity.noContent().build();
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

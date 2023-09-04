@@ -10,9 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +25,10 @@ public class FinancialRecordService {
 
         ResponseGetFinancialRecords response = new ResponseGetFinancialRecords();
 
-        response.setTotalMes(financialRecords.stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
-        response.setFinancialRecords(financialRecords.stream().map(FinancialRecordDTO::new).toList());
+        BigDecimal totalMes = financialRecords.stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add);
 
+        response.setTotalMes(totalMes == BigDecimal.ZERO ? new BigDecimal(0.00).setScale(2) : totalMes);
+        response.setFinancialRecords(financialRecords.stream().map(FinancialRecordDTO::new).toList());
         return response;
     }
 
