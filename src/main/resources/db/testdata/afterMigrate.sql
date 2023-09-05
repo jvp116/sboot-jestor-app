@@ -33,11 +33,25 @@ VALUES
     ('Transporte', 'car', '00A5CF', 'S'),
     ('Vendas', 'shopping_bag', 'D10202', 'E');
 
---INSERT IGNORE INTO financial_record (value, description, date, category_id, user_id)
---VALUES
---    ('111', 'aaa', utc_timestamp, 1, 1),
---    ('222', 'bbb', utc_timestamp, 2, 1),
---    ('333', 'ccc', utc_timestamp, 3, 1),
---    ('444', 'ddd', utc_timestamp, 12, 1),
---    ('555', 'eee', utc_timestamp, 13, 1),
---    ('666', 'fff', utc_timestamp, 14, 1);
+INSERT IGNORE INTO financial_record (value, description, date, category_id, user_id)
+VALUES
+    ('123.45', 'aaa', DATE '2023-09-01', 1, 1),
+    ('100.45', 'aaa', DATE '2023-09-02', 1, 1),
+    ('123.45', 'aaa', DATE '2023-08-01', 1, 1),
+    ('100.45', 'aaa', DATE '2023-08-02', 1, 1),
+    ('456.78', 'bbb', DATE '2023-09-01', 2, 1),
+    ('456.78', 'bbb', DATE '2023-08-01', 2, 1),
+    ('910.11', 'ccc', DATE '2023-09-02', 3, 1),
+    ('910.11', 'ccc', DATE '2023-08-03', 3, 1),
+    ('910.11', 'ccc', DATE '2023-08-04', 3, 1),
+    ('910.11', 'ccc', utc_timestamp, 4, 1),
+    ('910.11', 'ccc', utc_timestamp, 5, 1),
+    ('910.11', 'ccc', utc_timestamp, 6, 1),
+    ('1213.14', 'ddd', utc_timestamp, 7, 1),
+    ('1213.14', 'ddd', utc_timestamp, 8, 1),
+    ('1213.14', 'ddd', utc_timestamp, 9, 1),
+    ('1516.17', 'eee', utc_timestamp, 10, 1),
+    ('1516.17', 'eee', utc_timestamp, 11, 1),
+    ('18.19', 'fff', utc_timestamp, 12, 1),
+    ('18.19', 'fff', utc_timestamp, 13, 1),
+    ('18.19', 'fff', utc_timestamp, 14, 1);
