@@ -19,17 +19,16 @@ public class FinancialRecordService {
     @Autowired
     private FinancialRecordRepository repository;
 
-    @Cacheable(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
+    @Cacheable(value = "financial_records",key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
     public ResponseGetFinancialRecords getFinancialRecords(RequestGetFinancialRecords request) {
         List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType(), request.getMonth());
 
-        ResponseGetFinancialRecords response = new ResponseGetFinancialRecords();
-
         BigDecimal totalMes = financialRecords.stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        response.setTotalMes(totalMes == BigDecimal.ZERO ? new BigDecimal(0.00).setScale(2) : totalMes);
-        response.setFinancialRecords(financialRecords.stream().map(FinancialRecordDTO::new).toList());
-        return response;
+        return ResponseGetFinancialRecords.builder()
+                .totalMes(totalMes == BigDecimal.ZERO ? BigDecimal.valueOf(0.00).setScale(2) : totalMes)
+                .financialRecords(financialRecords.stream().map(FinancialRecordDTO::new).toList())
+                .build();
     }
 
     @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
