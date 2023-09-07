@@ -19,7 +19,7 @@ public class FinancialRecordService {
     @Autowired
     private FinancialRecordRepository repository;
 
-    @Cacheable(value = "financial_records",key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
+    @Cacheable(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
     public ResponseGetFinancialRecords getFinancialRecords(RequestGetFinancialRecords request) {
         List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType(), request.getMonth());
 
@@ -31,9 +31,14 @@ public class FinancialRecordService {
                 .build();
     }
 
-    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
-    public ResponseCreateFinancialRecords createFinancialRecord(RequestCreateFinancialRecords request) {
+    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}")
+    public ResponseCreateFinancialRecords createFinancialRecord(RequestCreateFinancialRecord request) {
         repository.createFinancialRecord(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getEmail());
         return new ResponseCreateFinancialRecords(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getType());
+    }
+
+    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}")
+    public void deleteFinancialRecord(Long id, RequestGetFinancialRecords request) {
+        repository.deleteById(id);
     }
 }

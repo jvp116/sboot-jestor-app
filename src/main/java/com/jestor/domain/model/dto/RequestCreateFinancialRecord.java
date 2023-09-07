@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestCreateFinancialRecords {
+public class RequestCreateFinancialRecord {
     private BigDecimal value;
     private String description;
     private String date;

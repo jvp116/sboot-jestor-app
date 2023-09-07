@@ -1,16 +1,11 @@
 package com.jestor.api.v1.controller;
 
-import com.jestor.domain.model.dto.RequestCreateFinancialRecords;
-import com.jestor.domain.model.dto.RequestGetFinancialRecords;
-import com.jestor.domain.model.dto.ResponseCreateFinancialRecords;
-import com.jestor.domain.model.dto.ResponseGetFinancialRecords;
+import com.jestor.domain.model.dto.*;
 import com.jestor.infrastructure.service.FinancialRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +22,13 @@ public class FinancialRecordController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseCreateFinancialRecords> createFinancialRecord(@RequestBody RequestCreateFinancialRecords request) {
+    public ResponseEntity<ResponseCreateFinancialRecords> createFinancialRecord(@RequestBody RequestCreateFinancialRecord request) {
         return new ResponseEntity<>(service.createFinancialRecord(request), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<RequestGetFinancialRecords> getFinancialRecords(@PathVariable Long id, @RequestBody RequestGetFinancialRecords request) {
+        service.deleteFinancialRecord(id, request);
+        return ResponseEntity.noContent().build();
     }
 }
