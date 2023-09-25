@@ -27,6 +27,12 @@ public class FinancialRecordController {
         return new ResponseEntity<>(service.createFinancialRecord(request), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseCreateFinancialRecords> updateFinancialRecord(@PathVariable Long id, @RequestBody RequestEditFinancialRecord request) {
+        ResponseCreateFinancialRecords response = service.updateFinancialRecord(id, request);
+        return ResponseEntity.ok().body(response);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<RequestGetFinancialRecords> deleteFinancialRecord(@PathVariable Long id, @RequestBody RequestGetFinancialRecords request) {
         FinancialRecord financialRecord = service.getEntityById(id);
