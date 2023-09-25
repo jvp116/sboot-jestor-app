@@ -3,6 +3,7 @@ package com.jestor.infrastructure.service;
 import com.jestor.domain.model.dto.*;
 import com.jestor.domain.model.financialrecord.FinancialRecord;
 import com.jestor.infrastructure.repository.FinancialRecordRepository;
+import com.jestor.infrastructure.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +42,10 @@ public class FinancialRecordService {
     @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}")
     public void deleteFinancialRecord(Long id, RequestGetFinancialRecords request) {
         repository.deleteById(id);
+    }
+
+    public FinancialRecord getEntityById(Long id) {
+        Optional<FinancialRecord> result = repository.findById(id);
+        return result.orElseThrow(() -> new ResourceNotFoundException("FinancialRecord não encontrado."));
     }
 }

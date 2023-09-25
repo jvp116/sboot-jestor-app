@@ -1,6 +1,7 @@
 package com.jestor.api.v1.controller;
 
 import com.jestor.domain.model.dto.*;
+import com.jestor.domain.model.financialrecord.FinancialRecord;
 import com.jestor.infrastructure.service.FinancialRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,11 @@ public class FinancialRecordController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<RequestGetFinancialRecords> getFinancialRecords(@PathVariable Long id, @RequestBody RequestGetFinancialRecords request) {
+    public ResponseEntity<RequestGetFinancialRecords> deleteFinancialRecord(@PathVariable Long id, @RequestBody RequestGetFinancialRecords request) {
+        FinancialRecord financialRecord = service.getEntityById(id);
+        request.setType(String.valueOf(financialRecord.getCategory().getType().getCode()));
+        request.setMonth(financialRecord.getDate().getMonthValue());
+
         service.deleteFinancialRecord(id, request);
         return ResponseEntity.noContent().build();
     }
