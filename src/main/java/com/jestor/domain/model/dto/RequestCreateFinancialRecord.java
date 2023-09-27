@@ -14,6 +14,7 @@ public class RequestCreateFinancialRecord {
     private String description;
     private String date;
     private Integer month;
+    private Integer year;
     private Integer categoryId;
     private String type;
     private String email;

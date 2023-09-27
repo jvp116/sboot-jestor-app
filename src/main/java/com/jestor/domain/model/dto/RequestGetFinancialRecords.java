@@ -11,4 +11,5 @@ public class RequestGetFinancialRecords {
     private String email;
     private String type;
     private Integer month;
+    private Integer year;
 }

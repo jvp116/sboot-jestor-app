@@ -23,37 +23,37 @@ public class FinancialRecordService {
     @Autowired
     private FinancialRecordRepository repository;
 
-    @Cacheable(value = "financial_records", key = "{#request.email,#request.type,#request.month}", condition = "#request.type=='E' or #request.type=='S'")
+    @Cacheable(value = "financial_records", key = "{#request.email,#request.type,#request.month,#request.year}", condition = "#request.type=='E' or #request.type=='S'")
     public ResponseGetFinancialRecords getFinancialRecords(RequestGetFinancialRecords request) {
-        List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType(), request.getMonth());
+        List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType(), request.getMonth(), request.getYear());
 
         BigDecimal totalMes = financialRecords.stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return ResponseGetFinancialRecords.builder()
-                .totalMes(totalMes == BigDecimal.ZERO ? BigDecimal.valueOf(0.00).setScale(2) : totalMes)
+                .totalMes(totalMes.equals(BigDecimal.ZERO) ? BigDecimal.valueOf(0.00).setScale(2) : totalMes)
                 .financialRecords(financialRecords.stream().map(FinancialRecordDTO::new).toList())
                 .build();
     }
 
-    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}")
+    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month,#request.year}")
     public ResponseCreateFinancialRecords createFinancialRecord(RequestCreateFinancialRecord request) {
         repository.createFinancialRecord(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getEmail());
         return new ResponseCreateFinancialRecords(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getType());
     }
 
     @Caching(evict = {
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,1}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,2}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,3}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,4}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,5}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,6}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,7}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,8}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,9}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,10}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,11}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,12}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,1,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,2,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,3,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,4,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,5,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,6,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,7,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,8,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,9,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,10,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,11,#request.year}"),
+            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,12,#request.year}"),
     })
     public ResponseCreateFinancialRecords updateFinancialRecord(Long id, RequestEditFinancialRecord request) {
         FinancialRecord entity = getEntityById(id);
@@ -62,7 +62,7 @@ public class FinancialRecordService {
         return new ResponseCreateFinancialRecords(request.getValue(), request.getDescription(), request.getDate(), null, request.getType());
     }
 
-    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month}")
+    @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month,#request.year}")
     public void deleteFinancialRecord(Long id, RequestGetFinancialRecords request) {
         repository.deleteById(id);
     }

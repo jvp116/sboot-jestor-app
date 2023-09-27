@@ -17,10 +17,10 @@ import java.util.List;
 public interface FinancialRecordRepository extends JpaRepository<FinancialRecord, Long> {
 
     @Query(
-            value = "SELECT fc.id, fc.value, fc.description, fc.date, fc.category_id, fc.user_id, c.type FROM financial_record fc LEFT JOIN category c ON fc.category_id = c.id LEFT JOIN _user u ON fc.user_id = u.id WHERE c.type = :type AND u.email = :email AND MONTH(fc.date) = :month ORDER BY fc.date DESC, fc.id DESC",
+            value = "SELECT fc.id, fc.value, fc.description, fc.date, fc.category_id, fc.user_id, c.type FROM financial_record fc LEFT JOIN category c ON fc.category_id = c.id LEFT JOIN _user u ON fc.user_id = u.id WHERE c.type = :type AND u.email = :email AND MONTH(fc.date) = :month AND YEAR(fc.date) = :year ORDER BY fc.date DESC, fc.id DESC;",
             nativeQuery = true
     )
-    List<FinancialRecord> getFinancialRecords(@Param("email") String email, @Param("type") String type, @Param("month") Integer month);
+    List<FinancialRecord> getFinancialRecords(@Param("email") String email, @Param("type") String type, @Param("month") Integer month, @Param("year") Integer year);
 
     @Transactional
     @Modifying
