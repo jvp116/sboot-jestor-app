@@ -35,6 +35,12 @@ public class FinancialRecordService {
                 .build();
     }
 
+    public List<FinancialRecordDTO> getAllFinancialRecords(String email) {
+        List<FinancialRecord> financialRecords = repository.getAllFinancialRecords(email);
+
+        return financialRecords.stream().map(FinancialRecordDTO::new).toList();
+    }
+
     @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,#request.month,#request.year}")
     public ResponseCreateFinancialRecords createFinancialRecord(RequestCreateFinancialRecord request) {
         repository.createFinancialRecord(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getEmail());

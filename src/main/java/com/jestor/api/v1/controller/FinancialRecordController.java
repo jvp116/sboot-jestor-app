@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/financial-record")
@@ -18,6 +20,13 @@ public class FinancialRecordController {
     @GetMapping
     public ResponseEntity<ResponseGetFinancialRecords> getFinancialRecords(@RequestBody RequestGetFinancialRecords request) {
         ResponseGetFinancialRecords response = service.getFinancialRecords(request);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<FinancialRecordDTO>> getAllFinancialRecords(@RequestBody String email) {
+        List response = service.getAllFinancialRecords(email);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
