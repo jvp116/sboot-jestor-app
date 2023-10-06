@@ -18,15 +18,15 @@ public class FinancialRecordController {
     private final FinancialRecordService service;
 
     @GetMapping
-    public ResponseEntity<ResponseGetFinancialRecords> getFinancialRecords(@RequestBody RequestGetFinancialRecords request) {
-        ResponseGetFinancialRecords response = service.getFinancialRecords(request);
+    public ResponseEntity<List<FinancialRecordDTO>> getFinancialRecords(@RequestBody RequestGetFinancialRecords request) {
+        List response = service.getFinancialRecords(request);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<FinancialRecordDTO>> getAllFinancialRecords(@RequestBody String email) {
-        List response = service.getAllFinancialRecords(email);
+    public ResponseEntity<List<FinancialRecordDTO>> getAllFinancialRecords(@RequestBody RequestGetAllFinancialRecords request) {
+        List response = service.getAllFinancialRecords(request);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

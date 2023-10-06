@@ -24,19 +24,14 @@ public class FinancialRecordService {
     private FinancialRecordRepository repository;
 
     @Cacheable(value = "financial_records", key = "{#request.email,#request.type,#request.month,#request.year}", condition = "#request.type=='E' or #request.type=='S'")
-    public ResponseGetFinancialRecords getFinancialRecords(RequestGetFinancialRecords request) {
+    public List<FinancialRecordDTO> getFinancialRecords(RequestGetFinancialRecords request) {
         List<FinancialRecord> financialRecords = repository.getFinancialRecords(request.getEmail(), request.getType(), request.getMonth(), request.getYear());
 
-        BigDecimal totalMes = financialRecords.stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        return ResponseGetFinancialRecords.builder()
-                .totalMes(totalMes.equals(BigDecimal.ZERO) ? BigDecimal.valueOf(0.00).setScale(2) : totalMes)
-                .financialRecords(financialRecords.stream().map(FinancialRecordDTO::new).toList())
-                .build();
+        return financialRecords.stream().map(FinancialRecordDTO::new).toList();
     }
 
-    public List<FinancialRecordDTO> getAllFinancialRecords(String email) {
-        List<FinancialRecord> financialRecords = repository.getAllFinancialRecords(email);
+    public List<FinancialRecordDTO> getAllFinancialRecords(RequestGetAllFinancialRecords request) {
+        List<FinancialRecord> financialRecords = repository.getAllFinancialRecords(request.getEmail(), request.getMonth(), request.getYear());
 
         return financialRecords.stream().map(FinancialRecordDTO::new).toList();
     }
@@ -47,20 +42,6 @@ public class FinancialRecordService {
         return new ResponseCreateFinancialRecords(request.getValue(), request.getDescription(), request.getDate(), request.getCategoryId(), request.getType());
     }
 
-    @Caching(evict = {
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,1,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,2,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,3,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,4,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,5,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,6,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,7,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,8,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,9,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,10,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,11,#request.year}"),
-            @CacheEvict(value = "financial_records", key = "{#request.email,#request.type,12,#request.year}"),
-    })
     public ResponseCreateFinancialRecords updateFinancialRecord(Long id, RequestEditFinancialRecord request) {
         FinancialRecord entity = getEntityById(id);
         copyDtoToEntityForUpdate(request, entity);
