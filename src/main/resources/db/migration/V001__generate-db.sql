@@ -1,10 +1,10 @@
-CREATE SCHEMA IF NOT EXISTS `jestor` DEFAULT CHARACTER SET utf8 ;
-USE `jestor`;
+CREATE DATABASE IF NOT EXISTS `db-jestor-app` DEFAULT CHARACTER SET utf8mb4 ;
+USE `db-jestor-app`;
 
 -- -----------------------------------------------------
--- Table `jestor`.`_user`
+-- Table `db-jestor-app`.`_user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jestor`.`_user` (
+CREATE TABLE IF NOT EXISTS `db-jestor-app`.`_user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
@@ -13,12 +13,12 @@ CREATE TABLE IF NOT EXISTS `jestor`.`_user` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 -- -----------------------------------------------------
--- Table `jestor`.`token`
+-- Table `db-jestor-app`.`token`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jestor`.`token` (
+CREATE TABLE IF NOT EXISTS `db-jestor-app`.`token` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `expired` BIT(1) NOT NULL,
   `revoked` BIT(1) NOT NULL,
@@ -30,15 +30,15 @@ CREATE TABLE IF NOT EXISTS `jestor`.`token` (
   INDEX `FKiblu4cjwvyntq3ugo31klp1c6` (`user_id` ASC) VISIBLE,
   CONSTRAINT `FKiblu4cjwvyntq3ugo31klp1c6`
     FOREIGN KEY (`user_id`)
-    REFERENCES `jestor`.`_user` (`id`))
+    REFERENCES `db-jestor-app`.`_user` (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 7
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 -- -----------------------------------------------------
--- Table `jestor`.`category`
+-- Table `db-jestor-app`.`category`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jestor`.`category` (
+CREATE TABLE IF NOT EXISTS `db-jestor-app`.`category` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `type` ENUM('E', 'S') NOT NULL,
   `color` VARCHAR(10) NOT NULL,
@@ -46,12 +46,12 @@ CREATE TABLE IF NOT EXISTS `jestor`.`category` (
   `icon` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8mb4;
 
 -- -----------------------------------------------------
--- Table `jestor`.`financial_record`
+-- Table `db-jestor-app`.`financial_record`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jestor`.`financial_record` (
+CREATE TABLE IF NOT EXISTS `db-jestor-app`.`financial_record` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `value` DECIMAL(38,2) NOT NULL,
   `description` VARCHAR(50) NOT NULL,
@@ -63,9 +63,9 @@ CREATE TABLE IF NOT EXISTS `jestor`.`financial_record` (
   INDEX `FKpi3i4ynamoe8sv8wkbsgqt89t` (`user_id` ASC) VISIBLE,
   CONSTRAINT `FKcagxqaet3yr6at2d21hgoijp8`
     FOREIGN KEY (`category_id`)
-    REFERENCES `jestor`.`category` (`id`),
+    REFERENCES `db-jestor-app`.`category` (`id`),
   CONSTRAINT `FKpi3i4ynamoe8sv8wkbsgqt89t`
     FOREIGN KEY (`user_id`)
-    REFERENCES `jestor`.`_user` (`id`))
+    REFERENCES `db-jestor-app`.`_user` (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
+DEFAULT CHARACTER SET = utf8mb4

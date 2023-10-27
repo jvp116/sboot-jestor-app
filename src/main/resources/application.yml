@@ -2,7 +2,7 @@ spring:
   main:
     lazy-initialization: true
   datasource:
-    url: jdbc:mysql://localhost/jestor?createDatabaseIfNotExist=true&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost/db-jestor-app?createDatabaseIfNotExist=true&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
     username: root
     password: 12345
   jpa:
